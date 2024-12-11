@@ -32,6 +32,7 @@ First of all, we only get the columns needed for the hypothesis testing(`positio
 
 For `df1`, we remove all the rows that contain `NaN` and add a column `played` showing the number of games played and group the dataset by `playerid` and `playername`. Besides, we also add a column `num_characters` that represents the number of unique characters each player used. Another column `weighted_num_characters`(calculated by shannon_diversity)is added to represent the weighted number of characters of each player. Players that played for more than 20 games are kept in the dataframe. Lastly, an additional column`winning_rate`is calculated to display the winning rate of each player and the dataframe is sorted from the highest `weighted_num_characters`. Below is the final cleaned `df1_temp`(first 5 rows): 
 
+
 | position   |   played |   result |   num_characters |   weighted_num_characters |   winning rate |
 |:-----------|---------:|---------:|-----------------:|--------------------------:|---------------:|
 | sup        |       77 |       58 |               22 |                   4.11723 |       0.753247 |
@@ -40,7 +41,9 @@ For `df1`, we remove all the rows that contain `NaN` and add a column `played` s
 | top        |       77 |       59 |               16 |                   3.66457 |       0.766234 |
 | jng        |       35 |       24 |                8 |                   2.77841 |       0.685714 |
 
+
 For `df2`, we just remove all the rows that contain `NaN`. Here's the final cleaned dataframe:
+
 
 | gameid           | league   | teamname           | teamid                                  |   gamelength |     dpm |   earned gpm |   vspm | pick1    | pick2     | pick3    | pick4     | pick5        |
 |:-----------------|:---------|:-------------------|:----------------------------------------|-------------:|--------:|-------------:|-------:|:---------|:----------|:---------|:----------|:-------------|
@@ -49,6 +52,7 @@ For `df2`, we just remove all the rows that contain `NaN`. Here's the final clea
 | 8401-8401_game_2 | LPL      | Oh My God          | oe:team:f4c4528c6981e104a11ea7548630c23 |         1444 | 2482.52 |      1586.26 | 7.4792 | Jinx     | Xin Zhao  | Rakan    | Rumble    | Corki        |
 | 8401-8401_game_2 | LPL      | ThunderTalk Gaming | oe:team:df80f468a3f9a722df056fe9104f052 |         1444 | 1459.65 |      1040.78 | 6.6066 | Lee Sin  | Leona     | Ziggs    | Gangplank | Twisted Fate |
 | 8402-8402_game_1 | LPL      | FunPlus Phoenix    | oe:team:33d17f3717f58e12a3da80b377221fb |         1893 | 1719.94 |      1373.19 | 8.6846 | Jinx     | Viego     | Thresh   | Corki     | Graves       |
+
 
 ### Univariate Analysis
 We performed Univariate Analysis on `weighted_num_characters` column of `df1_temp` to examine its distribution. 
