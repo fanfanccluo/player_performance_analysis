@@ -31,6 +31,7 @@ Here're the relavent columns:
 First of all, we only get the columns needed for the hypothesis testing(`position`,`playername`,`playeris`,`champion`,`result`) and rows that only contain players' information and store them in `df1`. Next, we  also get the columns needed for the prediciton model(`gameid`,`league`,`teamname`,`teamid`,`gamelength`,`dpm`,`eanred gpm`,`vspm`,`pick1-5`)and only include rows about teams and store everything in `df2`. 
 
 For `df1`, we remove all the rows that contain `NaN` and add a column `played` showing the number of games played and group the dataset by `playerid` and `playername`. Besides, we also add a column `num_characters` that represents the number of unique characters each player used. Another column `weighted_num_characters`(calculated by shannon_diversity)is added to represent the weighted number of characters of each player. Players that played for more than 20 games are kept in the dataframe. Lastly, an additional column`winning_rate`is calculated to display the winning rate of each player and the dataframe is sorted from the highest `weighted_num_characters`. Below is the final cleaned `df1_temp`(first 5 rows): 
+
 | position   |   played |   result |   num_characters |   weighted_num_characters |   winning rate |
 |:-----------|---------:|---------:|-----------------:|--------------------------:|---------------:|
 | sup        |       77 |       58 |               22 |                   4.11723 |       0.753247 |
@@ -40,6 +41,7 @@ For `df1`, we remove all the rows that contain `NaN` and add a column `played` s
 | jng        |       35 |       24 |                8 |                   2.77841 |       0.685714 |
 
 For `df2`, we just remove all the rows that contain `NaN`. Here's the final cleaned dataframe:
+
 | gameid           | league   | teamname           | teamid                                  |   gamelength |     dpm |   earned gpm |   vspm | pick1    | pick2     | pick3    | pick4     | pick5        |
 |:-----------------|:---------|:-------------------|:----------------------------------------|-------------:|--------:|-------------:|-------:|:---------|:----------|:---------|:----------|:-------------|
 | 8401-8401_game_1 | LPL      | Oh My God          | oe:team:f4c4528c6981e104a11ea7548630c23 |         1365 | 1762.02 |      1326.02 | 7.1209 | Jinx     | Jarvan IV | Nautilus | Syndra    | Gwen         |
@@ -52,7 +54,7 @@ For `df2`, we just remove all the rows that contain `NaN`. Here's the final clea
 We performed Univariate Analysis on `weighted_num_characters` column of `df1_temp` to examine its distribution. 
 
 <iframe
-  src="assets/weighted_num_characters.html"
+  src="assets/weighted_num_characters_distribution.html"
   width="800"
   height="600"
   frameborder="0"
