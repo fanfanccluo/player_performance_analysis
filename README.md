@@ -103,6 +103,7 @@ There is a weak positive trend where players who have played more games tend to 
 
 ### Interesting Aggregates
 We aggregated the `df1_temp` dataset by position. We summed the `number` column and averaged the remaining columns. Here's the outcome:
+
 | position   |   played |   winning rate |   num_characters |   weighted_num_characters |   number |
 |:-----------|---------:|---------------:|-----------------:|--------------------------:|---------:|
 | bot        |  51.4418 |       0.494947 |          13.4299 |                   3.26211 |      421 |
