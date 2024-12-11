@@ -104,6 +104,7 @@ There is a weak positive trend where players who have played more games tend to 
 ### Interesting Aggregates
 We aggregated the `df1_temp` dataset by position. We summed the `number` column and averaged the remaining columns. Here's the outcome:
 
+
 | position   |   played |   winning rate |   num_characters |   weighted_num_characters |   number |
 |:-----------|---------:|---------------:|-----------------:|--------------------------:|---------:|
 | bot        |  51.4418 |       0.494947 |          13.4299 |                   3.26211 |      421 |
@@ -111,6 +112,7 @@ We aggregated the `df1_temp` dataset by position. We summed the `number` column 
 | mid        |  50.7281 |       0.493927 |          15.3783 |                   3.5254  |      423 |
 | sup        |  48.9165 |       0.49916  |          13.7007 |                   3.29368 |      431 |
 | top        |  50.9108 |       0.500978 |          14.9859 |                   3.44844 |      426 |
+
 
 We can tell from this dataframe that the midlane players(`mid`) stand out for their large character pool,highlighting the need for flexibility in this role. Also, toplane players have the highest winning rate, suggesting that success in this position may be influenced by factors such as individual performance.
 
