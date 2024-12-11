@@ -180,17 +180,37 @@ We can take a look at the histogram of the correlation distribution:
 Since the p-value is smaller than the significance level 0.05, so we can reject the null hypothesis.This result indicates that the observed correlation is statistically significant, and there is likely a true relationship between the two variables. 
 
 ## Framing a Prediction Problem
-In the competitive world of League of Legends (LoL), each league, such as LCK (Korea), LCS (North America), and LPL (China), represents not only a geographical region but also a unique identity, defined by its playstyle, champion preferences, and strategic approach. In this last section, we want to build a model which could **predit the league a team belongs to** based on gameplay statistics and performance metrics(`dpm`,`earned gpm`,`gamelength`,`vspm`,`pick1-5`). This is a classification problem, specifically a **multiclass classification** task, as teams can belong to multiple leagues such as LCK, LCS, LPL or LEC. The **response variable** would be `league` as understanding a team's league based on gameplay metrics can provide insights into regional gameplay styles, strategies, and performance characteristics. This prediction can also help in analyzing trends and differences across leagues. The evaluation metric that we chose for our model is **Macro f1 score** as it balances well the two important aspects of classification(precision&recall) and also it handles the class imbalance well,which is critical for our dataset, as the distribution of classes is uneven. It is also well-suited for our multiclassifer probelm as it is calculated by taking the average of the F1 scores for each class in a multi-class problem. By focusing on the Macro F1 score, we ensure that our model evaluates performance fairly across all `league`. 
+In the competitive world of League of Legends (LoL), each league, such as LCK (Korea), LCS (North America), and LPL (China), represents not only a geographical region but also a unique identity, defined by its playstyle, champion preferences, and strategic approach. In this last section, we want to build a model which could **predit the league a team belongs to** based on gameplay statistics and performance metrics(`dpm`,`earned gpm`,`gamelength`,`vspm`,`pick1-5`). This is a classification problem, specifically a **multiclass classification** task, as teams can belong to multiple leagues such as LCK, LCS, LPL or LEC. The **response variable** would be `league` as understanding a team's league based on gameplay metrics can provide insights into regional gameplay styles, strategies, and performance characteristics. This prediction can also help in analyzing trends and differences across leagues. The evaluation metric that we chose for our model is **Macro F1 score** as it balances well the two important aspects of classification(precision&recall) and also it handles the class imbalance well,which is critical for our dataset, as the distribution of classes is uneven. It is also well-suited for our multiclassifer probelm as it is calculated by taking the average of the F1 scores for each class in a multi-class problem. By focusing on the Macro F1 score, we ensure that our model evaluates performance fairly across all `league`. 
 
 ## Baseline Model
-We used Random Forest Classifier as our baseline model following 4 features including:
+We used **Random Forest Classifier** as our baseline model following 4 features including:
 `dpm`,`earned gpm`,`gamelength`,`vspm`.  Among these four features, all of them are quantitative. Since they are all quantitative variables, we did not perform any encoding at this stage. After fitting the model,we evaluated our model using the Macro F1 score, which provides a better measure of performance.The Macro F1 score for our model is **0.309**. This relatively low Macro F1 score tells us that the model's challenges with correctly classifying less-represented leagues, particularly due to a lower recall for these classes, which indicates that many true positives were missed. 
 We would consider this model is mot yet 'good' enough for practical use(but at least it's slightly better than random wild guess). Improvements in feature selection&engineering and model optimization are necessary to create a more reliable classifier.
 
 ## Final Model
 For our final model, we added another 5 features: `pick1`,`pick2`,`pick3`,`pick4`,`pick5`(These features represent the champion picks for a team in a match). Champion picks are a key component of a team’s strategy and are often region-specific. Certain champions may be prioritized or avoided in specific leagues due to meta trends, player preferences, or regional playstyles.
-Including these features allows the model to capture strategic differences across leagues, which is critical for predicting a team’s league affiliation.
+Including these features allows the model to capture strategic differences across leagues, which is critical for predicting a team’s league affiliation. We still used a **Random Forest Classifier**. Ad the added features are categorical variables, so we first **OneHotEncoded** them. And then we performed 5-fold cross-validation using **Macro F1-score** as the evaluation metric and tested the following hyperparameter max_depth values: [2, 3, 5, 7, 10, 20, 50, 100, 200, 500, None]. We found out that the **best-performing max_depth** was **50**, achieving a mean cross-validation Macro F1 score of **0.33**. It was still a pretty low number but definitely a slight imporvement from our baseline model with an imporved Macro F1 score. Let's take a look at the confusion matrix:
+
+<iframe
+  src="assets/cm.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+As we can tell from the graph, the model struggles to predict LCS and LEC accurately. We need to improve our model so it could perform better on minority classes (e.g., LCS and LEC). Addressing class imbalance through techniques like oversampling or class weighting could improve predictions for these leagues. Additional features specific to LCS and LEC gameplay strategies may help reduce misclassifications.
 
 ## Fairness Analysis
+We want to see if this model is fair among different groups, especially for teams in LCK, LPL and teams in LEC, LCS.
+**GroupX** is LCK and LPL (Major Asian leagues) and **GroupY** is LEC and LCS(Western leagues).
+**Evaluation Metric** is accuracy, specifically the difference in accuracy between Group X (LCK and LPL) and Group Y (LEC and LCS).
+- **Test Statistic**: Observed accuracy difference between Group X and Group Y
+- **Significance Level**: 0.05
+  
+The followings are our hypothesis:
 
+- **Null Hypothesis**:Our model is unfair. There is a significant difference in the model's accuracy between Group X and Group Y.
+- **Alternative Hypothesis**:Our model is fair. There is no significant difference in the model's accuracy between Group X and Group Y.
+
+After conducting the test, we found out that the **Observed accuracy difference** is about 0.6686 and **p-value** is 0. The p-value is smaller than the significance level. Thus, we can **reject** the null hypothesis and conclude that our model is **Fair!**
 
