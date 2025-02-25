@@ -2,7 +2,7 @@
 
 This is the Final Project for DSC80 at UCSD
 
-[website]('https://fanfanccluo.github.io/player_performance_analysis/')
+[website](https://fanfanccluo.github.io/player_performance_analysis/)
 
 **Author(s)**:Junhao Yang,Zifan Luo
 
